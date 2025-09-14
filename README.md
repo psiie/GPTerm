@@ -1,6 +1,12 @@
 # GPT-Term-Helper
 
-A simple terminal-based assistant powered by OpenAI's GPT-4o. Enter your prompt as a command-line argument and receive a streamed response directly in your terminal.
+A simple terminal-based assistant powered by OpenAI's GPT-4o. Helpful for recalling commands, arguments, parameters, and piping stategies for your terminal.
+
+I use it to look up command syntax on the fly in my terminal. I have zsh set to not remember my history when using this command. 
+
+example:
+`$ a ffmpeg extract first audio track from mkv`
+`ffmpeg -i input.mkv -map 0:a:0 -c copy output_audio.aac`
 
 ## Features
 - Uses OpenAI's GPT-4o model
@@ -8,22 +14,18 @@ A simple terminal-based assistant powered by OpenAI's GPT-4o. Enter your prompt 
 - Customizable system prompt via environment variable
 
 ## Installation
-1. Clone this repository:
-   ```bash
-   git clone <repo-url>
-   cd gpt-term-helper
-   ```
+1. Clone this repository
 2. Install dependencies:
    ```bash
    npm install
    ```
-3. Set your OpenAI API key:
+3. Set your OpenAI API key in a new .env file:
    ```bash
-   export OPENAI_API_KEY=your-api-key
+   OPENAI_API_KEY="your-api-key"
    ```
-4. (Optional) Set a custom system prompt:
+4. (Optional) Set a custom system prompt in .env file:
    ```bash
-   export SYSTEM_PROMPT_TERMINAL="You are a helpful assistant."
+   SYSTEM_PROMPT_TERMINAL="You are a helpful assistant."
    ```
 
 ## Usage
