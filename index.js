@@ -25,6 +25,8 @@ const promptFromEnv = process.env[`SYSTEM_PROMPT_${promptTypeArg}`]
 const promptArg = argv.prompt;
 const systemPrompt = promptArg || promptFromEnv || 'You are a helpful assistant.';
 
+console.debug('--promt-type =', promptTypeArg);
+
 // init
 const client = new OpenAI();
 let firstMessage = true;

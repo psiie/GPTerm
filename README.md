@@ -71,6 +71,21 @@ source ~/.zshrc
 
 Note: My alias looks like: `alias a=' /home/psiie/.nvm/versions/node/v22.19.0/bin/node /home/psiie/git/gpterm/index.js --prompt-type terminal $@'`
 
+## Optional - My usage
+I have 3 main alias':
+1. `a` which shortcuts to terminal-specific queries
+2. `q` which shortcuts to my normal chatgpt queries (with my favorite system-prompt)
+3. `gpt` which shortcuts to `gpterm --query-type` where the set query-type is the first argument. This allows me to save endless query types and use them quickly. (ex: `gpt pirate how far away is the sun` uses query-type pirate. This is the shortest shorthand I could come up with for maximum expandability). However, I had to leverage functions in .zshrc in order to both have no-history as well as this functionality. See below:
+
+```bash
+# GPT Helper
+_gpt() {
+    echo "$1" : "${@:2}"
+    /home/psiie/.nvm/versions/node/v22.19.0/bin/node /home/psiie/git/gpterm/index.js --prompt-type="$1" ${@:2}
+}
+alias gpt=' _gpt $@'
+```
+
 ## Notes
 - Use `--debug` to see debug output.
 
