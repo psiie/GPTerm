@@ -1,41 +1,54 @@
-# GPT-Term-Helper
+# GPTerm
+A customizable CLI tool that leverages multiple system prompts.
 
-A simple terminal-based assistant powered by OpenAI's GPT-4o. Helpful for recalling commands, arguments, parameters, and piping stategies for your terminal.
+I use it to look up common command syntax or quickly querying GPT on the fly in my terminal. I have zsh set to not remember my history when using this command.
 
-I use it to look up command syntax on the fly in my terminal. I have zsh set to not remember my history when using this command. 
+## Simple Usage
+While gpterm is meant to be bound to terminal shortcuts such as `a` and `q` (and thereby abstracting away the preset system-prompts), you can use gpterm directly as so:
 
-example:
-`$ a ffmpeg extract first audio track from mkv`
-`ffmpeg -i input.mkv -map 0:a:0 -c copy output_audio.aac`
-
-## Features
-- Uses OpenAI's GPT-4o model
-- Streams responses for fast feedback
-- Customizable system prompt via environment variable
-
-## Installation
-1. Clone this repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Set your OpenAI API key in a new .env file:
-   ```bash
-   OPENAI_API_KEY="your-api-key"
-   ```
-4. (Optional) Set a custom system prompt in .env file:
-   ```bash
-   SYSTEM_PROMPT_TERMINAL="You are a helpful assistant."
-   ```
-
-## Usage
-Run the script with your prompt:
 ```bash
-node index.js "How do I list files in Linux?"
+$ node index.js how far away is the sun?
+The average distance from the Earth to the Sun is about 149.6 million kilometers. This distance is also referred to as one astronomical unit (AU), which is a standard measurement used in astronomy to describe distances within our solar system.
 ```
 
-## Optional: Zsh Integration
-To use the tool in zsh, and in any directory and without saving to history, you can leverage the HIST_IGNORE_SPACE and add a alias. Now your queries will no longer be remembered
+gpterm offers 2 flags to allow for system prompt customization. `--prompt-type`, which loads the cooresponding value from a `.env` file, and `--prompt` for customizing the prompt.
+
+```bash
+$ node index.js --prompt "talk like a pirate" how far away is the sun?
+Arrr matey, the great fiery orb in the sky, known to landlubbers as the Sun, be about 93 million miles away, or roughly 150 million kilometers for those who be countin' in metric. That's near enough to keep our planet warm and bright, yet far enough to keep our sails from catchin' fire! Savvy? 🌞
+```
+
+## Advanced Usage
+Assuming your terminal environment maps `q` to `gpterm --prompt-type query` and your .env populates SYSTEM_PROMPT_QUERY:
+```bash
+$ q "How do I list files in Linux?"
+To list files in Linux, you can use the ls command
+```
+
+Assuming your terminal environment maps `a` to `gpterm --prompt-type terminal` and your .env populates SYSTEM_PROMPT_TERMINAL:
+```bash
+$ a ffmpeg extract first audio track from mkv
+ffmpeg -i input.mkv -map 0:a:0 -c copy output_audio.aac
+```
+
+## Flags
+- `--prompt "your prompt"` — Directly specify the system prompt for the assistant.
+- `--prompt-type foobar` — Loads a system prompt from the environment variable `SYSTEM_PROMPT_FOOBAR` (e.g., `SYSTEM_PROMPT_TERMINAL`).
+- `--debug` — Enables debug output.
+
+## Prompt Selection Priority
+1. If `--prompt` is provided, it is used as the system prompt.
+2. Else, if `--prompt-type` is provided, the environment variable `SYSTEM_PROMPT_<TYPE>` is used. (ex: --prompt-type="R2D2" results in loading SYSTEM_PROMPT_R2D2)
+3. Else, defaults to `You are a helpful assistant.`
+
+## Environment Variables
+Environment variables inside .env are automatically loaded. You can also leverage your .zshrc or .bashrc profile.
+- `OPENAI_API_KEY` — Your OpenAI API key.
+- `SYSTEM_PROMPT_TERMINAL` — Example custom prompt for terminal mode.
+- `SYSTEM_PROMPT_FOOBAR` — Any arbitrary string can be used. FOOBAR is determined by the --prompt-type value. (ex: --prompt-type="R2D2" results in loading SYSTEM_PROMPT_R2D2)
+
+## Optional But Recommended: Zsh Integration
+To use the tool in zsh, and in any directory and without saving to history, you can leverage the HIST_IGNORE_SPACE and add an alias. Now your queries will no longer be remembered due to the space that starts the command (eg: ` node index.js`)
 
 1. Prevent commands starting with a space from being saved in history:
    Add this to your `~/.zshrc`:
@@ -51,10 +64,15 @@ To use the tool in zsh, and in any directory and without saving to history, you 
    ```bash
    a "your prompt here"
    ```
-After editing your `.zshrc`, reload it with:
+3. After editing your `.zshrc`, reload it with:
 ```bash
 source ~/.zshrc
 ```
+
+Note: My alias looks like: `alias a=' /home/psiie/.nvm/versions/node/v22.19.0/bin/node /home/psiie/git/gpterm/index.js --prompt-type terminal $@'`
+
+## Notes
+- Use `--debug` to see debug output.
 
 ## License
 MIT
