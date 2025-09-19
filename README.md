@@ -5,6 +5,8 @@ Why GPTerm over full-AI terminals? Due to privacy requirements or preventing sen
 
 Personally, I use it to look up common command syntax or quickly querying GPT on the fly in my terminal. I have zsh set to not remember my history when using this command.
 
+![A terminal screenshot showing the power of GPTerm](path/to/example.png)
+
 ## Simple Usage
 While gpterm is meant to be bound to terminal shortcuts such as `a` and `q` (and thereby abstracting away the preset system-prompts), you can use gpterm directly as so:
 
