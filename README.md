@@ -1,7 +1,9 @@
 # GPTerm
 A customizable CLI tool that leverages multiple system prompts.
 
-I use it to look up common command syntax or quickly querying GPT on the fly in my terminal. I have zsh set to not remember my history when using this command.
+Why GPTerm over full-AI terminals? Due to privacy requirements or preventing sensitive data from leaking, GPTerm has the advantage of being there when you want it, without leaking your sensitive data from your terminal out. 
+
+Personally, I use it to look up common command syntax or quickly querying GPT on the fly in my terminal. I have zsh set to not remember my history when using this command.
 
 ## Simple Usage
 While gpterm is meant to be bound to terminal shortcuts such as `a` and `q` (and thereby abstracting away the preset system-prompts), you can use gpterm directly as so:
